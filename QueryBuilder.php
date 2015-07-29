@@ -650,6 +650,11 @@ class QueryBuilder extends Object
         } elseif ($sql !== '') {
             $sql .= ',1000';  // this is the default limit by sphinx
         }
+        
+        // auto max_matches
+        $maxMatches = ($limit + $offset);
+		if ($maxMatches > 1000) // default max_matches
+			$sql .= ' option max_matches=' . $maxMatches;
 
         return $sql;
     }
